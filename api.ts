@@ -18,9 +18,6 @@ api.interceptors.request.use(async (config) => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response?.status === 401 || error.response?.status === 403) {
-      // store.dispatch(logout());
-    }
     return Promise.reject(error);
   }
 );

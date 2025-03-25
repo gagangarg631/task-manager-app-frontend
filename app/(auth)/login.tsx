@@ -31,7 +31,7 @@ export default function LoginScreen() {
   const onSubmit = async (data: FormData) => {
     dispatch(login(data)).unwrap()
     .then(() => {
-      router.push('/(tasks)/home')
+      router.push('/(tasks)')
     })
     .catch((error) => {
       showSnackbar(error)
@@ -39,12 +39,12 @@ export default function LoginScreen() {
   };
 
   const goToSignup = () => {
-    router.push('/(auth)/signup');
+    router.push('/(auth)/Signup');
   }
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', padding: 20, backgroundColor: Colors.light.background }}>
-      <Text variant="headlineMedium" style={{ marginBottom: 30 }}>Login</Text>
+      <Text style={{ marginBottom: 30 }}>Login</Text>
 
       <View style={styles.fields}>
         <View>

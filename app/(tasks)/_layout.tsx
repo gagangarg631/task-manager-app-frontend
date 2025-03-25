@@ -1,25 +1,27 @@
-import { Stack } from 'expo-router';
+import { Redirect, Stack } from 'expo-router';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const DashboardStack = () => (
-    <Stack
-      initialRouteName="home"
-      screenOptions={{
-        headerStyle: {
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-        headerShown: false,
-      }}>
-      <Stack.Screen name="home" options={{ title: "Tasks" }} />
-      <Stack.Screen name="details" />
-    </Stack>
-)
+export default function AppLayout() {
 
-export default function HomeLayout() {
+  const { token } = useSelector((state: RootState) => state.user);
 
-  return (
-    <DashboardStack />
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+
+  const checkAuth = async () => {
+    const token = await AsyncStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }
+
+  useEffect(() => {
+    checkAuth();
+  }, [token])
+
+  if (!isAuthenticated) {
+    return <Redirect href="/(auth)/Login" />;
+  }
+
+  return <Stack screenOptions={{ headerShown: false }} />;
 }

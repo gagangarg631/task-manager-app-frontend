@@ -65,6 +65,7 @@ export const getTaskById = createAsyncThunk(
 
 
 export interface Task {
+    _id: String;
     title: String;
     description: String;
 }

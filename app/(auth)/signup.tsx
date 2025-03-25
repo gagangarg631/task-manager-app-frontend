@@ -51,12 +51,12 @@ export default function SignupScreen() {
   }
 
   const goToLogin = () => {
-    router.push('/(auth)/login');
+    router.push('/(auth)/Login');
   }
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', padding: 20, backgroundColor: Colors.light.background }}>
-      <Text variant="headlineMedium" style={{ marginBottom: 30 }}>Sign Up</Text>
+      <Text style={{ marginBottom: 30 }}>Sign Up</Text>
 
       <View style={styles.fields}>
         <View>

@@ -17,7 +17,7 @@ const CustomHeader = (props: HeaderProps) => {
 
     const logoutApp = () => {
       dispatch(logout());
-      router.replace('/(auth)/login');
+      router.replace('/(auth)/Login');
     }
 
     return (
@@ -25,7 +25,9 @@ const CustomHeader = (props: HeaderProps) => {
         {showBack && <Appbar.Action icon="arrow-left" onPress={router.back} />}
         <Appbar.Content title={title || 'Tasks App'} />
         {showLogout && <Appbar.Action icon="logout" onPress={logoutApp} />}
-        {showPlus && <Appbar.Action icon="plus" onPress={() => router.push('/(tasks)/taskForm')} />}
+        {showPlus && <Appbar.Action icon="plus" onPress={() => {
+          router.push('/(tasks)/taskform')
+        }} />}
       </Appbar.Header>
     );
   };

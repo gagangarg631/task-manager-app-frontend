@@ -1,34 +1,34 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Redirect, Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
+import { Stack } from 'expo-router';
+import { MD3DarkTheme, MD3LightTheme, PaperProvider } from 'react-native-paper';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
 import { SnackbarProvider } from '@/context/SnackbarProvider';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const theme = {
+    ...(colorScheme === 'dark' ? MD3DarkTheme : MD3LightTheme),
+    fonts: {
+      bodySmall: { fontFamily: 'System', fontWeight: '400' },
+      bodyLarge: { fontFamily: 'System', fontWeight: '400' },
+      bodyMedium: { fontFamily: 'System', fontWeight: '400' },
+      labelLarge: { fontFamily: 'System', fontWeight: '400' },
+      titleLarge: { fontFamily: 'System', fontWeight: '400' },
+      regular: { fontFamily: 'System', fontWeight: '400' },
+      medium: { fontFamily: 'System', fontWeight: '500' },
+      bold: { fontFamily: 'System', fontWeight: '700' },
+      heavy: { fontFamily: 'System', fontWeight: '900' },
+    },
+  };
 
   return (
     <Provider store={store}>
-      <ThemeProvider value={colorScheme !== 'dark' ? DarkTheme : DefaultTheme}>
-        <SnackbarProvider>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Redirect href="/(auth)/login" />
-            <Stack.Screen name="(auth)/login" options={{ headerShown: false }} />
-            <Stack.Screen name="(auth)/signup" options={{ headerShown: false }} />
-            <Stack.Screen name="(tasks)" options={{ headerShown: false }} />
-          </Stack>
-        </SnackbarProvider>
-        <StatusBar style="auto" />
-      </ThemeProvider>
+      <PaperProvider theme={theme as any}>
+          <SnackbarProvider>
+            <Stack screenOptions={{ headerShown: false }} />
+          </SnackbarProvider>
+      </PaperProvider>
     </Provider>
   );
 }
